@@ -1,9 +1,9 @@
-import QuestionBlock from './Components/QuestionBlock/QuestionBlock'
+import GeneratePage from './PageGeneration/GeneratePage';
 
 function App() {
   return (
     <div>
-      <QuestionBlock/>
+      <GeneratePage/>
     </div>
   );
 }
