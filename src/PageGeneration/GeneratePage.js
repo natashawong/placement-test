@@ -2,36 +2,6 @@ import React, {Component} from 'react';
 import { Formik, Form } from 'formik';
 import QuestionBlock from '../Components/QuestionBlock/QuestionBlock'
 
-const questions = [
-    {
-        prompt: "this is prompt 1",
-        options: [
-            {letter: "A", prompt: "option A"},
-            {letter: "B", prompt: "option B"},
-            {letter: "C", prompt: "option C"},
-            {letter: "D", prompt: "option D"},
-        ]
-    },
-    {
-        prompt: "this is prompt 2",
-        options: [
-            {letter: "A", prompt: "option A"},
-            {letter: "B", prompt: "option B"},
-            {letter: "C", prompt: "option C"},
-            {letter: "D", prompt: "option D"},
-        ]
-    },
-    {
-        prompt: "this is prompt 3",
-        options: [
-            {letter: "A", prompt: "option A"},
-            {letter: "B", prompt: "option B"},
-            {letter: "C", prompt: "option C"},
-            {letter: "D", prompt: "option D"},
-        ]
-    },
-]
-
 export default class GeneratePage extends Component {
     constructor(props) {
         super(props);
@@ -73,8 +43,7 @@ export default class GeneratePage extends Component {
                 }}
             >
                 <Form>
-                    {/* change to this.state.questions later */}
-                    {questions.map((question, i) =>
+                    {this.state.questions.map((question, i) =>
                         <QuestionBlock 
                             numbering={i+1}
                             prompt={question.prompt} 
