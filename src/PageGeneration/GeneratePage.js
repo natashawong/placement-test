@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { Formik, Form } from 'formik';
 import QuestionBlock from '../Components/QuestionBlock/QuestionBlock'
 
+const axios = require("axios");
+
 export default class GeneratePage extends Component {
     constructor(props) {
         super(props);
@@ -11,8 +13,14 @@ export default class GeneratePage extends Component {
         };
     }
 
+    fetchApi() {
+        axios.get('https://my-json-server.typicode.com/natashawong/placement-test')
+        .then(resp => resp.json)
+        .then(resp => console.log(resp))
+    }
+
     componentDidMount() {
-        // fetch initial questions here
+        this.fetchApi();
     }
 
     render() {
