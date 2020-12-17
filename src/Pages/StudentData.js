@@ -41,6 +41,7 @@ export class StudentData extends Component {
 
         return(
             // TODO: add Yup validation schema
+            <div>
             <Formik 
                 initialValues={initialValues} 
                 onSubmit={(values) => {
@@ -105,6 +106,7 @@ export class StudentData extends Component {
                     <button type="submit">Submit</button>
                 </Form>
             </Formik>
+            </div>
         )
     }
 }

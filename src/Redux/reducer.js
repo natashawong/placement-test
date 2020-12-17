@@ -11,7 +11,7 @@ export default function rootReducer(state = initialState, action) {
                 userData: action.payload
             }
         }
-        case "SET_LANG_SETTINGS": {
+        case "SAVE_LANG_SETTINGS": {
             return {
                 ...state,
                 langSettings: action.payload
