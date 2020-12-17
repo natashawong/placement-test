@@ -22,7 +22,7 @@ export default class GeneratePage extends Component {
 
     componentDidMount() {
         // add an extra /traditional or /simplified to get specifically trad or simp API questions + answers
-        this.setQuestions('https://api.mocki.io/v1/3a1b18ab' + "/" + this.props.category); 
+        this.setQuestions('https://api.mocki.io/v1/3a1b18ab' + "/" + this.props.category);
     }
 
     render() {

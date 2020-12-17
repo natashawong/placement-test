@@ -4,3 +4,10 @@ export const saveUserData = data => ({
         data
     }
 });
+
+export const saveLangSettings = data => ({
+    type: "SAVE_LANG_SETTINGS",
+    payload: {
+        data
+    }
+})
