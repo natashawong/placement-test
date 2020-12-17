@@ -1,26 +1,28 @@
 import React, {Component} from 'react';
 import { Formik, Form } from 'formik';
-import QuestionBlock from '../Components/QuestionBlock/QuestionBlock'
+import PropTypes from 'prop-types';
 
-const axios = require("axios");
+import QuestionBlock from '../Components/QuestionBlock/QuestionBlock'
 
 export default class GeneratePage extends Component {
     constructor(props) {
         super(props);
         this.state={
             questions: [],
-            pageNum: 0,
+            questionNumbering: 0,
+            pageNum: 1,
         };
     }
 
-    fetchApi() {
-        axios.get('https://my-json-server.typicode.com/natashawong/placement-test')
-        .then(resp => resp.json)
-        .then(resp => console.log(resp))
+    setQuestions(url) {
+        fetch(url)
+        .then(resp => resp.json())
+        .then(data => this.setState({questions: data}))
     }
 
     componentDidMount() {
-        this.fetchApi();
+        // add an extra /traditional or /simplified to get specifically trad or simp API questions + answers
+        this.setQuestions('https://api.mocki.io/v1/3a1b18ab' + "/" + this.props.category); 
     }
 
     render() {
@@ -42,26 +44,33 @@ export default class GeneratePage extends Component {
                 initialValues={initialValues} 
                 onSubmit={(values) => {
                     alert(JSON.stringify(values, null, 4));
+                    // util function to calc: num correct and append to a user data state
+                    // url has to pull advanced or medium accordingly (append to url)
+                    this.setQuestions("https://api.mocki.io/v1/b4f55606" + "/" + this.props.category);
                     this.setState({
-                        // compute score (util function(answerKey, values))
-                        // answerkey = {1: "A", 2: "B", 3: "C",...10:"A"} object!
-                        // update questions (fetchApi(score))
-                        // update pageNum
+                        pageNum: this.state.pageNum + 1,
+                        questionNumbering: this.state.questionNumbering + 10
                     })
                 }}
             >
                 <Form>
                     {this.state.questions.map((question, i) =>
                         <QuestionBlock 
-                            numbering={i+1}
+                            key={i}
+                            numbering={this.state.questionNumbering + i + 1}
                             prompt={question.prompt} 
                             options={question.options}
                             questionNumber={i+1}
                         /> 
                     )}
                     <button type="submit">Submit</button>
+                    <h3>Page {this.state.pageNum} of 4</h3>
                 </Form>
             </Formik>
         )
     }
+}
+
+GeneratePage.propTypes = {
+    category: PropTypes.oneOf(["traditional", "simplified"])
 }
