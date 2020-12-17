@@ -103,7 +103,7 @@ export class StudentData extends Component {
 
                     <LangRadioGroup qName={"LangSettings"}/>
 
-                    <button type="submit">Submit</button>
+                    <Link to="/start-test"><button type="submit">Submit</button></Link>
                 </Form>
             </Formik>
             </div>

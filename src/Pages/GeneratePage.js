@@ -9,6 +9,7 @@ export default class GeneratePage extends Component {
         super(props);
         this.state={
             questions: [],
+            answerKey: [],
             questionNumbering: 0,
             pageNum: 1,
         };
@@ -17,12 +18,16 @@ export default class GeneratePage extends Component {
     setQuestions(url) {
         fetch(url)
         .then(resp => resp.json())
-        .then(data => this.setState({questions: data}))
+        .then(data => this.setState({questions: data})) // retrieve questions
+        .then(data => {
+                let result = data.map(obj => obj.answer); // retrieve answer
+                this.setState({answerKey: result})
+            })
     }
 
     componentDidMount() {
         // add an extra /traditional or /simplified to get specifically trad or simp API questions + answers
-        this.setQuestions('https://api.mocki.io/v1/3a1b18ab' + "/" + this.props.category);
+        this.setQuestions('https://api.mocki.io/v1/3a1b18ab'); //  + "/" + this.props.langSettings
     }
 
     render() {
@@ -46,7 +51,7 @@ export default class GeneratePage extends Component {
                     alert(JSON.stringify(values, null, 4));
                     // util function to calc: num correct and append to a user data state
                     // url has to pull advanced or medium accordingly (append to url)
-                    this.setQuestions("https://api.mocki.io/v1/b4f55606" + "/" + this.props.category);
+                    this.setQuestions("https://api.mocki.io/v1/b4f55606"); //  + "/" + this.props.category
                     this.setState({
                         pageNum: this.state.pageNum + 1,
                         questionNumbering: this.state.questionNumbering + 10
