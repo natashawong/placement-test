@@ -24,8 +24,19 @@ Number of Character Radio Group:
 Topic Proficiency Radio Group:
 - question, qName
 - labels: All, Most, Some, None
-
 */
+
+export const LangRadioGroup = ({qName}) => {
+    return(
+        <div>
+            <h4>Would you like to take the placement test in simplified or traditional Chinese?</h4>
+            <label>Simplified</label>
+            <Field type="radio" name={qName} value="Simplified"/>
+            <label>Traditional</label>
+            <Field type="radio" name={qName} value="Traditional"/>
+        </div>
+    )
+}
 
 export const YNRadioGroup = ({question, qName}) => {
     return(

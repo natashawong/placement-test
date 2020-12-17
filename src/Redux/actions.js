@@ -1,13 +1,13 @@
-export const saveUserData = data => ({
-    type: "SAVE_USER_DATA",
-    payload: {
-        data
+export function saveUserData(data){
+    return {
+        type: 'SAVE_USER_DATA',
+        payload: {data}
     }
-});
+};
 
-export const saveLangSettings = data => ({
-    type: "SAVE_LANG_SETTINGS",
-    payload: {
-        data
+export function saveLangSettings(data){
+    return {
+        type: 'SAVE_LANG_SETTINGS',
+        payload: {data}
     }
-})
+};

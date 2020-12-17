@@ -1,6 +1,6 @@
 const initialState = {
     userData: [],
-    langSettings: ""
+    langSettings: "",
 }
 
 export default function rootReducer(state = initialState, action) {
