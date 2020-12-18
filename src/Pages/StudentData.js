@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import { Formik, Form } from 'formik';
-import { Link } from 'react-router-dom';
 
-import {connect} from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
+import { connect } from 'react-redux';
 import { saveUserData, saveLangSettings } from '../Redux/actions';
 
 import { YNRadioGroup, SchlRadioGroup, NumCharsRadioGroup, TopicProfRadioGroup, LangRadioGroup } from '../Components/RadioGroup/RadioGroup';
@@ -39,6 +40,7 @@ export class StudentData extends Component {
             LangSettings: "", // done
         };
 
+
         return(
             // TODO: add Yup validation schema
             <div>
@@ -46,8 +48,9 @@ export class StudentData extends Component {
                 initialValues={initialValues} 
                 onSubmit={(values) => {
                     alert(JSON.stringify(values, null, 4));
-                    this.props.saveUserData(values)
-                    this.props.saveLangSettings(values.LangSettings)
+                    this.props.saveUserData(values);
+                    this.props.saveLangSettings(values.LangSettings);
+                    this.props.history.push('start-test');
                 }}
             >
                 <Form>
@@ -103,13 +106,15 @@ export class StudentData extends Component {
 
                     <LangRadioGroup qName={"LangSettings"}/>
 
-                    <Link to="/start-test"><button type="submit">Submit</button></Link>
+                    <button type="submit">Submit</button>
                 </Form>
             </Formik>
             </div>
         )
     }
 }
+
+const addRouter = withRouter(StudentData);
 
 export default connect(
     null, 

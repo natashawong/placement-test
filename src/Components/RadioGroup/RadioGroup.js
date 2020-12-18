@@ -31,9 +31,9 @@ export const LangRadioGroup = ({qName}) => {
         <div>
             <h4>Would you like to take the placement test in simplified or traditional Chinese?</h4>
             <label>Simplified</label>
-            <Field type="radio" name={qName} value="Simplified"/>
+            <Field type="radio" name={qName} value="simplified"/>
             <label>Traditional</label>
-            <Field type="radio" name={qName} value="Traditional"/>
+            <Field type="radio" name={qName} value="traditional"/>
         </div>
     )
 }

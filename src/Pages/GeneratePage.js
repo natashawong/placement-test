@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
 import { Formik, Form } from 'formik';
-import PropTypes from 'prop-types';
 
 import QuestionBlock from '../Components/QuestionBlock/QuestionBlock'
 import checkAns from '../utils/CheckAns';
 
-export default class GeneratePage extends Component {
+import { connect } from 'react-redux';
+
+const _ = require("lodash");
+
+export class GeneratePage extends Component {
     constructor(props) {
         super(props);
         this.state={
@@ -14,6 +17,11 @@ export default class GeneratePage extends Component {
             questionNumbering: 0,
             pageNum: 1,
         };
+    }
+
+    componentDidMount() {
+        // add an extra /traditional or /simplified to get specifically trad or simp API questions + answers
+        this.setQuestions('https://api.mocki.io/v1/6bec8ea5'); //  + "/" + this.props.langSettings + "/" + "easy"
     }
 
     setQuestions(url) {
@@ -28,9 +36,13 @@ export default class GeneratePage extends Component {
         })
     }
 
-    componentDidMount() {
-        // add an extra /traditional or /simplified to get specifically trad or simp API questions + answers
-        this.setQuestions('https://api.mocki.io/v1/34eee778'); //  + "/" + this.props.langSettings + "/" + "easy"
+    finalSubmit() {
+        const finalResults = [];
+        finalResults.push(this.props.userData);
+        finalResults.push(this.state.testResults);
+        // post data to db
+        
+        // directly move to end page
     }
 
     render() {
@@ -47,6 +59,8 @@ export default class GeneratePage extends Component {
             10: "",
         };
 
+        const langSettings = Object.values(this.props.langSettings)[0]
+
         return(
             <Formik 
                 initialValues={initialValues} 
@@ -60,7 +74,7 @@ export default class GeneratePage extends Component {
                     actions.resetForm();
 
                     // url has to pull advanced or medium accordingly (append to url)
-                    this.setQuestions("https://api.mocki.io/v1/1cfba4e9"); //  + "/" + this.props.category + "/" + result
+                    this.setQuestions("https://api.mocki.io/v1/1cfba4e9"); //  + "/" + this.props.langSettings + "/" + result
                     this.setState({
                         pageNum: this.state.pageNum + 1,
                         questionNumbering: this.state.questionNumbering + 10
@@ -70,12 +84,13 @@ export default class GeneratePage extends Component {
                 <Form>
                     <h3>Page {this.state.pageNum} of 4</h3>
                     {this.state.questions.map((question, i) =>
-                        <QuestionBlock 
+                        <QuestionBlock
                             key={i}
                             numbering={this.state.questionNumbering + i + 1}
-                            prompt={question.prompt} 
+                            prompt={_.get(question, ["prompt" + "_" + langSettings])} // lodash _.get because it's difficult to access the nested property
                             options={question.options}
                             questionNumber={i+1}
+                            langSettings={langSettings}
                         /> 
                     )}
                     <button type="submit">Submit</button>
@@ -85,6 +100,9 @@ export default class GeneratePage extends Component {
     }
 }
 
-GeneratePage.propTypes = {
-    category: PropTypes.oneOf(["traditional", "simplified"])
-}
+const mapStateToProps = state => ({
+    langSettings: state.langSettings,
+    userData: state.userData,
+});
+
+export default connect(mapStateToProps)(GeneratePage)

@@ -1,69 +1,84 @@
 [
     {
        "qID": "238dhasdk",
-       "prompt": "this is prompt 1",
+       "prompt_simplified": "this is prompt 1 simplified",
+       "prompt_traditional": "this is prompt 1 traditional",
        "options":[
           {
              "letter":"A",
-             "prompt":"option A"
+             "prompt_simplified":"option A_simplified",
+             "prompt_traditional":"option A_traditional"
           },
           {
              "letter":"B",
-             "prompt":"option B"
+             "prompt_simplified":"option B_simplified",
+             "prompt_traditional":"option B_traditional"
           },
           {
              "letter":"C",
-             "prompt":"option C"
+             "prompt_simplified":"option C_simplified",
+             "prompt_traditional":"option C_traditional"
           },
           {
              "letter":"D",
-             "prompt":"option D"
+             "prompt_simplified":"option D_simplified",
+             "prompt_traditional":"option D_traditional"
           }
        ],
        "answer": "A"
     },
     {
       "qID": "3276sakjd",
-       "prompt":"this is prompt 2",
+      "prompt_simplified": "this is prompt 2 simplified",
+      "prompt_traditional": "this is prompt 2 traditional",
        "options":[
           {
              "letter":"A",
-             "prompt":"option A"
+             "prompt_simplified":"option A_simplified",
+             "prompt_traditional":"option A_traditional"
           },
           {
              "letter":"B",
-             "prompt":"option B"
+             "prompt_simplified":"option B_simplified",
+             "prompt_traditional":"option B_traditional"
           },
           {
              "letter":"C",
-             "prompt":"option C"
+             "prompt_simplified":"option C_simplified",
+             "prompt_traditional":"option C_traditional"
           },
           {
              "letter":"D",
-             "prompt":"option D"
+             "prompt_simplified":"option D_simplified",
+             "prompt_traditional":"option D_traditional"
           }
        ],
        "answer": "B"
     },
     {
       "qID": "2982kzjfhjks",
-       "prompt":"this is prompt 3",
+      "prompt_simplified": "this is prompt 3 simplified",
+      "prompt_traditional": "this is prompt 3 traditional",
        "options":[
           {
              "letter":"A",
-             "prompt":"option A"
+             "prompt_simplified":"option A_simplified",
+             "prompt_traditional":"option A_traditional"
           },
           {
              "letter":"B",
-             "prompt":"option B"
+             "prompt_simplified":"option B_simplified",
+             "prompt_traditional":"option B_traditional"
           },
           {
              "letter":"C",
-             "prompt":"option C"
+             "prompt_simplified":"option C_simplified",
+             "prompt_traditional":"option C_traditional"
           },
           {
              "letter":"D",
-             "prompt":"option D"
+             "prompt_simplified":"option D_simplified",
+             "prompt_traditional":"option D_traditional"
           }
        ],
        "answer": "C"
