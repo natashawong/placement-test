@@ -40,7 +40,6 @@ export class StudentData extends Component {
             LangSettings: "", // done
         };
 
-
         return(
             // TODO: add Yup validation schema
             <div>

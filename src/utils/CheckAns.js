@@ -1,9 +1,15 @@
-export default function checkAns(userAns, correctAns) {
+import { getNextDifficulty } from '../utils/Difficulty';
+
+export default function checkAns(userAns, correctAns, difficulty) {
     let userScore = 0;
     for (let i = 0; i < userAns.length; i++) {
         if (userAns[i] == correctAns[i]) {
             userScore++;
         }
     }
-    return userScore; // for now, return some data based off the score to pass into the api call
+    if (userScore <= 5) {
+        return [difficulty, userScore];
+    } else {
+        return [getNextDifficulty(difficulty), userScore];
+    }
 }
