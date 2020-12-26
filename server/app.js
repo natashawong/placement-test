@@ -23,12 +23,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// connect to dbs
-var students_db = mongoose.createConnection(process.env.STUDENTS_DB);
+// connect to db
+export const students_db = mongoose.createConnection(process.env.STUDENTS_DB, {useNewUrlParser: true});
 students_db.on('error', (error) => console.error(error))
 students_db.once('open', () => console.log('connected to students database'))
 
-var questions_db = mongoose.createConnection(process.env.QUESTIONS_DB);
+export const questions_db = mongoose.createConnection(process.env.QUESTIONS_DB, {useNewUrlParser: true});
 questions_db.on('error', (error) => console.error(error))
 questions_db.once('open', () => console.log('connected to questions database'))
 
