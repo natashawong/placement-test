@@ -34,7 +34,7 @@ export class GeneratePage extends Component {
 
     componentDidMount() {
         // add an extra /traditional or /simplified to get specifically trad or simp API questions + answers
-        this.setQuestions('https://api.mocki.io/v1/3e21d9f7'); //  + "/" + this.props.langSettings + "/" + this.state.currDifficulty
+        this.setQuestions('https://api.mocki.io/v1/3e21d9f7'); //  + "/" + this.state.currDifficulty
     }
 
     setQuestions(url) {
@@ -106,7 +106,7 @@ export class GeneratePage extends Component {
                     actions.resetForm();
 
                     // url has to pull advanced or medium accordingly (append to url)
-                    // this.setQuestions("https://api.mocki.io/v1/1cfba4e9"); //  + "/" + this.props.langSettings + "/" + this.state.currDifficulty
+                    // this.setQuestions("https://api.mocki.io/v1/1cfba4e9"); + this.state.currDifficulty
 
                 }}
             >
