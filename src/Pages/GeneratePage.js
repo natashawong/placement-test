@@ -33,8 +33,7 @@ export class GeneratePage extends Component {
     }
 
     componentDidMount() {
-        // add an extra /traditional or /simplified to get specifically trad or simp API questions + answers
-        this.setQuestions('https://api.mocki.io/v1/3e21d9f7'); //  + "/" + this.state.currDifficulty
+        this.setQuestions('http://localhost:9000/set-questions/easy'); //  + "/" + this.state.currDifficulty
     }
 
     setQuestions(url) {
@@ -76,7 +75,7 @@ export class GeneratePage extends Component {
             10: "",
         };
 
-        const langSettings = Object.values(this.props.langSettings)[0] // original: "{data: "simplified"}" => formatted to array and then getting the string: "simplified"
+        const langSettings = Object.values(this.props.langSettings)[0]
 
         return(
             <Formik 
@@ -112,15 +111,18 @@ export class GeneratePage extends Component {
             >
                 <Form>
                     <h3>Page {this.state.pageNum} of 4</h3>
-                    {this.state.questions.map((question, i) =>
+                    {this.state.questions.map((question, i) => {
+                        return (
                         <QuestionBlock
                             key={i}
                             numbering={this.state.questionNumbering + i + 1}
-                            prompt={_.get(question, ["prompt_" + langSettings])}
+                            prompt={question["prompt_" + langSettings]}
                             options={question.options}
                             questionNumber={i+1}
                             langSettings={langSettings}
                         /> 
+                        )
+                    }
                     )}
                     <button type="submit">Submit</button>
                 </Form>
