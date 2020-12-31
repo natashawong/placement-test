@@ -40,6 +40,7 @@ export class GeneratePage extends Component {
         fetch(url)
         .then(resp => resp.json())
         .then(data => {
+            console.log("data" + data)
             let result = data.map(obj => obj.answer);
             let tempUpdate = {...this.state.testResults}
             let currTotal = _.get(tempUpdate, this.state.currDifficulty + "Total");
