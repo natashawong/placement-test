@@ -28,6 +28,5 @@ const questionSchema = new mongoose.Schema({
     answer: String,
 })
 
-
 const questions_db_conn = mongoose.createConnection(process.env.QUESTIONS_DB, {useNewUrlParser: true});
 module.exports = questions_db_conn.model('easy_question', mongoose.Schema(questionSchema));
