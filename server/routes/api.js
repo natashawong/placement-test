@@ -43,7 +43,7 @@ router.get('/set-questions/easy', async (req, res) => {
     }
 })
 
-router.get('/set-questions/medium', (req, res) => {
+router.get('/set-questions/medium', async (req, res) => {
     try {
         const currQs = await getRandomQuestions(mediumQuestionModel, medQuestionsSeen)
         res.send(currQs)
@@ -53,7 +53,7 @@ router.get('/set-questions/medium', (req, res) => {
     }
 })
 
-router.get('/set-questions/advance', (req, res) => {
+router.get('/set-questions/advance', async (req, res) => {
     try {
         const currQs = await getRandomQuestions(advanceQuestionModel, advQuestionsSeen)
         res.send(currQs)
@@ -63,7 +63,7 @@ router.get('/set-questions/advance', (req, res) => {
     }
 })
 
-router.get('/set-questions/native', (req, res) => {
+router.get('/set-questions/native', async (req, res) => {
     try {
         const currQs = await getRandomQuestions(nativeQuestionModel, nativeQuestionsSeen)
         res.send(currQs)
