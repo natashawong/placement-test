@@ -1,11 +1,11 @@
 export const DIFFICULTY = {
     EASY: "easy",
     MEDIUM: "medium",
-    ADVANCED: "advanced",
+    ADVANCED: "advance",
     NATIVE: "native",
 }
 
-export const getNextDifficulty = (currDifficulty) => {
+export const getHigherDifficulty = (currDifficulty) => {
     switch (currDifficulty) {
         case DIFFICULTY.EASY:
             return DIFFICULTY.MEDIUM;
@@ -15,5 +15,18 @@ export const getNextDifficulty = (currDifficulty) => {
             return DIFFICULTY.NATIVE;
         case DIFFICULTY.NATIVE:
             return DIFFICULTY.NATIVE;
+    }
+}
+
+export const getLowerDifficulty = (currDifficulty) => {
+    switch (currDifficulty) {
+        case DIFFICULTY.EASY:
+            return DIFFICULTY.EASY;
+        case DIFFICULTY.MEDIUM:
+            return DIFFICULTY.EASY;
+        case DIFFICULTY.ADVANCED:
+            return DIFFICULTY.MEDIUM;
+        case DIFFICULTY.NATIVE:
+            return DIFFICULTY.ADVANCED;
     }
 }

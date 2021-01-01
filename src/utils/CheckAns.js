@@ -1,4 +1,4 @@
-import { getNextDifficulty } from '../utils/Difficulty';
+import { getLowerDifficulty, getHigherDifficulty } from '../utils/Difficulty';
 
 export default function checkAns(userAns, correctAns, difficulty) {
     let userScore = 0;
@@ -7,9 +7,9 @@ export default function checkAns(userAns, correctAns, difficulty) {
             userScore++;
         }
     }
-    if (userScore <= 5) {
-        return [difficulty, userScore];
+    if (userScore <= 2) { // TODO: change to 5 or wtv hard coded
+        return [getLowerDifficulty(difficulty), userScore];
     } else {
-        return [getNextDifficulty(difficulty), userScore];
+        return [getHigherDifficulty(difficulty), userScore];
     }
 }

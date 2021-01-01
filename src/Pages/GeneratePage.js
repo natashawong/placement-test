@@ -33,7 +33,7 @@ export class GeneratePage extends Component {
     }
 
     componentDidMount() {
-        this.setQuestions('http://localhost:9000/set-questions/easy'); //  + "/" + this.state.currDifficulty
+        this.setQuestions('http://localhost:9000/set-questions/' + this.state.currDifficulty);
     }
 
     setQuestions(url) {
@@ -104,9 +104,9 @@ export class GeneratePage extends Component {
                     })
 
                     actions.resetForm();
-
-                    // url has to pull advanced or medium accordingly (append to url)
-                    // this.setQuestions("https://api.mocki.io/v1/1cfba4e9"); + this.state.currDifficulty
+                    
+                    // reset questions again
+                    this.setQuestions('http://localhost:9000/set-questions/' + this.state.currDifficulty);
 
                 }}
             >

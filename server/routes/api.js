@@ -18,7 +18,7 @@ var medQuestionsSeen = []
 var advQuestionsSeen = []
 var nativeQuestionsSeen = []
 
-// TODO: error handling
+// TODO: error handling AND loading screen while questions are coming up
 
 async function getRandomQuestions(model, questionsSeen) {
     const count = await model.countDocuments();
