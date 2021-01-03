@@ -8,6 +8,7 @@ import { DIFFICULTY } from '../utils/Difficulty';
 import { connect } from 'react-redux';
 
 const _ = require("lodash");
+const axios = require("axios");
 
 export class GeneratePage extends Component {
     constructor(props) {
@@ -23,8 +24,8 @@ export class GeneratePage extends Component {
                 easyTotal: 0,
                 mediumCorrect: 0,
                 mediumTotal: 0,
-                advancedCorrect: 0,
-                advancedTotal: 0,
+                advanceCorrect: 0,
+                advanceTotal: 0,
                 nativeCorrect: 0,
                 nativeTotal: 0,
                 result: "",
@@ -40,11 +41,13 @@ export class GeneratePage extends Component {
         fetch(url)
         .then(resp => resp.json())
         .then(data => {
-            console.log("data" + data)
             let result = data.map(obj => obj.answer);
+
+            // update question totals
             let tempUpdate = {...this.state.testResults}
-            let currTotal = _.get(tempUpdate, this.state.currDifficulty + "Total");
-            _.set(tempUpdate, this.state.currDifficulty + "Total", currTotal + 10); // TODO: change if we're not dispensing 10 qs at a time
+            const totalQGiven = _.get(tempUpdate, this.state.currDifficulty + "Total")
+            _.set(tempUpdate, this.state.currDifficulty + "Total", totalQGiven + 10)
+
             this.setState({
                 questions: data,
                 answerKey: result,
@@ -53,13 +56,29 @@ export class GeneratePage extends Component {
         })
     }
 
+    updateScores(pageScore) {
+        let tempUpdate = {...this.state.testResults}
+        const currScore = _.get(tempUpdate, this.state.currDifficulty + "Correct")
+        _.set(tempUpdate, this.state.currDifficulty + "Correct", currScore + pageScore)
+
+        this.setState({testResults: tempUpdate})
+    }
+
     finalSubmit() {
-        const finalResults = [];
-        finalResults.push(this.props.userData);
-        finalResults.push(this.state.testResults);
+        // set student's proficiency in test results state
+        let tempUpdate = {...this.state.testResults}
+        tempUpdate.result = this.state.currDifficulty // final test result bracket TODO: maybe calculate this
+        this.setState({testResults: tempUpdate})
+
+        const finalRes = Object.assign(this.props.userData.data, {Results: this.state.testResults});
+
         // post data to db
-        
-        // directly move to end page
+        axios.post('http://localhost:9000/submit', finalRes)
+        .then(resp => console.log(resp))
+        .catch(err => console.log(err))
+
+        // TODO: directly move to end page (TODO: make an end page)
+        console.log("finished!")
     }
 
     render() {
@@ -82,32 +101,29 @@ export class GeneratePage extends Component {
             <Formik 
                 initialValues={initialValues} 
                 onSubmit={(values, actions) => {
-                    alert(JSON.stringify(values, null, 4));
-                    // TODO: one more function for finalSubmit to post all the data to the db
-
                     const userAns = Object.values(values)
                     const result = checkAns(userAns, this.state.answerKey, this.state.currDifficulty)
 
                     const nextDifficulty = result[0]; // difficulty for next page
-                    const score = result[1]; // score of current page
+                    const pageScore = result[1]; // score of current page
 
-                    let tempUpdate = {...this.state.testResults}
-                    const currScore = _.get(tempUpdate, this.state.currDifficulty + "Correct")
-                    _.set(tempUpdate, this.state.currDifficulty + "Correct", currScore + score)
+                    this.updateScores(pageScore);
 
-                    // update new difficulty, test score results, and page and question numbering
-                    this.setState({
-                        currDifficulty: nextDifficulty,
-                        testResults: tempUpdate,
-                        pageNum: this.state.pageNum + 1,
-                        questionNumbering: this.state.questionNumbering + 10
-                    })
+                    if (this.state.pageNum === 4) {
+                        this.finalSubmit(); // submit test
+                    } else {
+                        // update new difficulty and page and question numbering
+                        this.setState({
+                            currDifficulty: nextDifficulty,
+                            pageNum: this.state.pageNum + 1,
+                            questionNumbering: this.state.questionNumbering + 10
+                        })
+
+                        // reset questions again
+                        this.setQuestions('http://localhost:9000/set-questions/' + this.state.currDifficulty);
+                    }
 
                     actions.resetForm();
-                    
-                    // reset questions again
-                    this.setQuestions('http://localhost:9000/set-questions/' + this.state.currDifficulty);
-
                 }}
             >
                 <Form>

@@ -29,8 +29,21 @@ const studentSchema = new mongoose.Schema({
     Topics_LiteraryWorks_Hist_Economy: String,
     OtherInfo: String,
     LangSettings: String,
+    Results: [
+        {
+            advanceCorrect: Number,
+            advanceTotal: Number,
+            easyCorrect: Number,
+            easyTotal: Number,
+            mediumCorrect: Number,
+            mediumTotal: Number,
+            nativeCorrect: Number,
+            nativeTotal: Number,
+            result: String,
+        }
+    ]
 })
 
 
 const students_db_conn = mongoose.createConnection(process.env.STUDENTS_DB, {useNewUrlParser: true});
-module.exports = students_db_conn.model('question', mongoose.Schema(studentSchema));
+module.exports = students_db_conn.model('student', mongoose.Schema(studentSchema));
