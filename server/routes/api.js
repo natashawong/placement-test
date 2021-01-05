@@ -24,10 +24,9 @@ async function getRandomQuestions(model, questionsSeen) {
     const count = await model.countDocuments().lean();
     const questions = await Promise.all([...new Array(3)].map(() => { // TODO: change to 10 later
         var rand = Math.floor(Math.random() * Math.floor(count));
-        // TODO: this makes things BROKEN! make sessions work!
-        // while (questionsSeen.includes(rand)) {
-        //     rand = Math.floor(Math.random() * Math.floor(count));
-        // }
+        while (questionsSeen.includes(rand)) {
+            rand = Math.floor(Math.random() * Math.floor(count));
+        }
         questionsSeen.push(rand);
         return model.findOne().skip(rand).lean().exec();
     }));
@@ -36,8 +35,9 @@ async function getRandomQuestions(model, questionsSeen) {
 
 router.get('/set-questions/easy', async (req, res) => {
     try {
-        const currQs = await getRandomQuestions(easyQuestionModel, easyQuestionsSeen)
-        res.send(currQs)
+        if (!req.session.easyQuestionsSeen) {req.session.easyQuestionsSeen = []};
+        const currQs = await getRandomQuestions(easyQuestionModel, req.session.easyQuestionsSeen);
+        res.send(currQs);
     } catch(err) {
         res.sendStatus(500)
         console.log(err)
@@ -46,7 +46,8 @@ router.get('/set-questions/easy', async (req, res) => {
 
 router.get('/set-questions/medium', async (req, res) => {
     try {
-        const currQs = await getRandomQuestions(mediumQuestionModel, medQuestionsSeen)
+        if (!req.session.medQuestionsSeen) {req.session.medQuestionsSeen = []};
+        const currQs = await getRandomQuestions(mediumQuestionModel, req.session.medQuestionsSeen)
         res.send(currQs)
     } catch(err) {
         res.sendStatus(500)
@@ -56,7 +57,8 @@ router.get('/set-questions/medium', async (req, res) => {
 
 router.get('/set-questions/advance', async (req, res) => {
     try {
-        const currQs = await getRandomQuestions(advanceQuestionModel, advQuestionsSeen)
+        if (!req.session.advQuestionsSeen) {req.session.advQuestionsSeen = []};
+        const currQs = await getRandomQuestions(mediumQuestionModel, req.session.advQuestionsSeen)
         res.send(currQs)
     } catch(err) {
         res.sendStatus(500)
@@ -66,7 +68,8 @@ router.get('/set-questions/advance', async (req, res) => {
 
 router.get('/set-questions/native', async (req, res) => {
     try {
-        const currQs = await getRandomQuestions(nativeQuestionModel, nativeQuestionsSeen)
+        if (!req.session.nativeQuestionsSeen) {req.session.nativeQuestionsSeen = []};
+        const currQs = await getRandomQuestions(mediumQuestionModel, req.session.nativeQuestionsSeen)
         res.send(currQs)
     } catch(err) {
         res.sendStatus(500)

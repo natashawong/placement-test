@@ -38,18 +38,16 @@ export class GeneratePage extends Component {
     }
 
     setQuestions(url) {
-        fetch(url)
-        .then(resp => resp.json())
-        .then(data => {
-            let result = data.map(obj => obj.answer);
-
+        axios.get(url, {withCredentials: true})
+        .then(resp => {
+            let result = resp.data.map(obj => obj.answer);
             // update question totals
             let tempUpdate = {...this.state.testResults}
             const totalQGiven = _.get(tempUpdate, this.state.currDifficulty + "Total")
             _.set(tempUpdate, this.state.currDifficulty + "Total", totalQGiven + 10)
 
             this.setState({
-                questions: data,
+                questions: resp.data,
                 answerKey: result,
                 testResults: tempUpdate,
             });
@@ -73,7 +71,7 @@ export class GeneratePage extends Component {
         const finalRes = Object.assign(this.props.userData.data, {Results: this.state.testResults});
 
         // post data to db
-        axios.post('http://localhost:9000/submit', finalRes)
+        axios.post('http://localhost:9000/submit', {withCredentials: true}, finalRes)
         .then(resp => console.log(resp))
         .catch(err => console.log(err))
 
