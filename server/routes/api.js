@@ -58,7 +58,7 @@ router.get('/set-questions/medium', async (req, res) => {
 router.get('/set-questions/advance', async (req, res) => {
     try {
         if (!req.session.advQuestionsSeen) {req.session.advQuestionsSeen = []};
-        const currQs = await getRandomQuestions(mediumQuestionModel, req.session.advQuestionsSeen)
+        const currQs = await getRandomQuestions(advanceQuestionModel, req.session.advQuestionsSeen)
         res.send(currQs)
     } catch(err) {
         res.sendStatus(500)
@@ -69,7 +69,7 @@ router.get('/set-questions/advance', async (req, res) => {
 router.get('/set-questions/native', async (req, res) => {
     try {
         if (!req.session.nativeQuestionsSeen) {req.session.nativeQuestionsSeen = []};
-        const currQs = await getRandomQuestions(mediumQuestionModel, req.session.nativeQuestionsSeen)
+        const currQs = await getRandomQuestions(nativeQuestionModel, req.session.nativeQuestionsSeen)
         res.send(currQs)
     } catch(err) {
         res.sendStatus(500)
