@@ -50,7 +50,15 @@ export class StudentData extends Component {
                     alert(JSON.stringify(values, null, 4));
                     this.props.saveUserData(values);
                     this.props.saveLangSettings(values.LangSettings);
-                    this.props.history.push('start-test');
+
+                    // Route separate path for exceptions (beginner, native speakers)
+                    if (values.Beginner == "Yes") {
+                        this.props.history.push('beginner-page');
+                    } else if (values.NativeSpeaker == "Yes") {
+                        this.props.history.push('native-page');
+                    } else {
+                        this.props.history.push('start-test');
+                    }
                 }}
             >
                 <Form>

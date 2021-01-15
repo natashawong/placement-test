@@ -78,7 +78,7 @@ export class GeneratePage extends Component {
         .catch(err => console.log(err))
 
         // TODO: directly move to end page (TODO: make an end page)
-        console.log("finished!")
+        this.props.history.push('finish')
     }
 
     render() {
@@ -147,6 +147,8 @@ export class GeneratePage extends Component {
         )
     }
 }
+
+const addRouter = withRouter(GeneratePage);
 
 const mapStateToProps = state => ({
     langSettings: state.langSettings,
