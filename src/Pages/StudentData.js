@@ -68,12 +68,12 @@ export class StudentData extends Component {
                     <TextField question={"Nationality"} qName={"Nationality"}/>
 
                     <YNRadioGroup 
-                        question={"I am a native speaker of Chinese and was educated in a junior high and/or high school which used Chinese as the primary language of instruction."}
+                        question={"I am a native speaker of Chinese and was educated in a junior high and/or high school which used Chinese as the primary language of instruction. (You will not need to take the test.)"}
                         qName={"NativeSpeaker"}
                     />
 
                     <YNRadioGroup 
-                        question={"I have little to no experience with the Chinese language."}
+                        question={"I have little to no experience with the Chinese language. (You will not need to take the test and will be placed into CHIN1A.)"}
                         qName={"Beginner"}
                     />
 
