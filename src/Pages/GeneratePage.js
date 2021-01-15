@@ -70,8 +70,10 @@ export class GeneratePage extends Component {
 
         const finalRes = Object.assign(this.props.userData.data, {Results: this.state.testResults});
 
+        console.log(finalRes)
+
         // post data to db
-        axios.post('http://localhost:9000/submit', {withCredentials: true}, finalRes)
+        axios.post('http://localhost:9000/submit', finalRes, {withCredentials: true})
         .then(resp => console.log(resp))
         .catch(err => console.log(err))
 

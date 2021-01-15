@@ -17,7 +17,7 @@ var cors = require("cors");
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(cors({ credentials: true, origin: "http://localhost:3000" })); // TOOD: change local host to website regex eventually
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -25,7 +25,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // sessions
 app.use(session({
-  secret: 'cmc>pomona',   
+  secret: 'cmc>pomona', // TODO: obvs pls change this and throw in env file
   resave: false,
   saveUninitialized: true,
 }));

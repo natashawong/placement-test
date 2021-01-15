@@ -64,6 +64,8 @@ export const SchlRadioGroup = ({qName}) => {
             <Field type="radio" name={qName} value="PTZ"/>
             <label>SCR</label>
             <Field type="radio" name={qName} value="SCR"/>
+            <label>OTHER</label>
+            <Field type="radio" name={qName} value="OTHER"/>
         </div>
     )
 }

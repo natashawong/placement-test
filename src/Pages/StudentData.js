@@ -7,37 +7,38 @@ import { connect } from 'react-redux';
 import { saveUserData, saveLangSettings } from '../Redux/actions';
 
 import { YNRadioGroup, SchlRadioGroup, NumCharsRadioGroup, TopicProfRadioGroup, LangRadioGroup } from '../Components/RadioGroup/RadioGroup';
-import { TextField } from '../Components/TextField/TextField';
+import { TextField, NumField } from '../Components/BasicFields/BasicFields';
 
 export class StudentData extends Component {
     render() {
         const initialValues = {
-            Name: "", // done
-            School: "", // done
-            Email: "", // done
-            Nationality: "", // done
-            NativeSpeaker: "", // done
-            PrevChineseEducation: "",
+            Name: "",
+            School: "",
+            Email: "",
+            Nationality: "",
+            NativeSpeaker: "",
+            Beginner: "",
+            PrevChineseEducation: 0,
+            ChineseProfTests: "",
             RecentYrChineseEd: 0,
             IntensityOfInstruction: 0,
-            NumCharactersRead: "", // done
-            NumCharactersWritten: "", // done
-            HeritageLearner: "", // done
-            FluentWOFormal: "", // done
-            FluentWOWriting: "", // done
-            ChineseAtHome: "", // done
-            ChineseWFriends: "", // done
-            Other: "", // done
-            Classical: "", // done
-            StudyAbroad: "",
+            NumCharactersRead: "",
+            NumCharactersWritten: "",
+            HeritageLearner: "",
+            FluentWOFormal: "",
+            FluentWOWriting: "",
+            ChineseAtHome: "",
+            ChineseWFriends: "",
+            Other: "",
+            Classical: "",
             LengthOfStudyAbroad: 0,
-            Topics_Family_Dates_Hobby_Sports_Money: "", // done
-            Topics_Weather_Direction_Doctor_Apt_Travel: "", // done
-            Topics_Internet_Education_Jobs_Course_Geo: "", // done
-            Topics_Uni_ChineseReligion_Customs_Gender_Env: "", // done
-            Topics_LiteraryWorks_Hist_Economy: "", // done
-            OtherInfo: "", // done
-            LangSettings: "", // done
+            Topics_Family_Dates_Hobby_Sports_Money: "",
+            Topics_Weather_Direction_Doctor_Apt_Travel: "",
+            Topics_Internet_Education_Jobs_Course_Geo: "",
+            Topics_Uni_ChineseReligion_Customs_Gender_Env: "",
+            Topics_LiteraryWorks_Hist_Economy: "",
+            OtherInfo: "",
+            LangSettings: "",
         };
 
         return(
@@ -63,8 +64,20 @@ export class StudentData extends Component {
                         qName={"NativeSpeaker"}
                     />
 
+                    <YNRadioGroup 
+                        question={"I have little to no experience with the Chinese language."}
+                        qName={"Beginner"}
+                    />
+
+                    <NumField question={"Previous Chinese education in years"} qName={"PrevChineseEducation"}/>
+                    <TextField question={"List any Chinese proficiency tests you have taken (Test name - Score)"} qName={"ChineseProfTests"}/>
+                    <NumField question={"Most recent year taking Chinese"} qName={"RecentYrChineseEd"}/>
+                    <NumField question={"Intensity of most recent instruction (number of hours/week)"} qName={"IntensityOfInstruction"}/>
+
                     <NumCharsRadioGroup question={"Number of character you can read:"} qName={"NumCharactersRead"}/>
                     <NumCharsRadioGroup question={"Number of character you can write:"} qName={"NumCharactersWritten"}/>
+
+                    <NumField question={"Length of sutdy abroad if any"} qName={"LengthOfStudyAbroad"}/>
 
                     {/* TODO: map bottom sections out when I have time, cleaner */}
                     <YNRadioGroup 

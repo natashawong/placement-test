@@ -13,10 +13,6 @@ const studentModel = require('../models/studentSchema');
  * 
  */
 
-var easyQuestionsSeen = []
-var medQuestionsSeen = []
-var advQuestionsSeen = []
-var nativeQuestionsSeen = []
 
 // TODO: error handling AND loading screen while questions are coming up
 
@@ -90,9 +86,12 @@ router.get('/set-questions/native', async (req, res) => {
         Email: req.body.Email,
         Nationality: req.body.Nationality,
         NativeSpeaker: req.body.NativeSpeaker,
+        Beginner: req.body.Beginner,
         PrevChineseEducation: req.body.PrevChineseEducation,
-        RecentYrChineseEd: 0,
-        IntensityOfInstruction: 0,
+        ChineseProfTests: req.body.ChineseProfTests,
+        PrevChineseEducation: req.body.PrevChineseEducation,
+        RecentYrChineseEd: req.body.RecentYrChineseEd,
+        IntensityOfInstruction: req.body.IntensityOfInstruction,
         NumCharactersRead: req.body.NumCharactersRead,
         NumCharactersWritten: req.body.NumCharactersWritten,
         HeritageLearner: req.body.HeritageLearner,
@@ -102,8 +101,7 @@ router.get('/set-questions/native', async (req, res) => {
         ChineseWFriends: req.body.ChineseWFriends,
         Other: req.body.Other,
         Classical: req.body.Classical,
-        StudyAbroad: req.body.StudyAbroad,
-        LengthOfStudyAbroad: 0,
+        LengthOfStudyAbroad: req.body.LengthOfStudyAbroad,
         Topics_Family_Dates_Hobby_Sports_Money: req.body.Topics_Family_Dates_Hobby_Sports_Money,
         Topics_Weather_Direction_Doctor_Apt_Travel: req.body.Topics_Weather_Direction_Doctor_Apt_Travel,
         Topics_Internet_Education_Jobs_Course_Geo: req.body.Topics_Internet_Education_Jobs_Course_Geo,
@@ -115,7 +113,7 @@ router.get('/set-questions/native', async (req, res) => {
      })
      try {
          const newStudentInfo = await studentInfo.save()
-         res.sendStatus(200).json(newStudentInfo)
+         res.send(newStudentInfo)
      } catch(err) {
          res.sendStatus(500)
          console.log(err)
