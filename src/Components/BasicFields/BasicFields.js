@@ -10,12 +10,3 @@ export const TextField = ({question, qName}) => {
         </div>
     )
 }
-
-export const NumField = ({question, qName}) => {
-    return(
-        <div>
-            <label>{question}</label>
-            <Field type="number" name={qName}/>
-        </div>
-    )
-}

@@ -16,14 +16,6 @@ School Radio Group:
 - qName
 - labels: CMC, HMC, POM, PTZ, SCR
 Note: question already inserted
-
-Number of Character Radio Group:
-- question, qName
-- labels: less than 200, 200 to 250, 500 to 800, more than 800
-
-Topic Proficiency Radio Group:
-- question, qName
-- labels: All, Most, Some, None
 */
 
 export const LangRadioGroup = ({qName}) => {
@@ -66,38 +58,6 @@ export const SchlRadioGroup = ({qName}) => {
             <Field type="radio" name={qName} value="SCR"/>
             <label>OTHER</label>
             <Field type="radio" name={qName} value="OTHER"/>
-        </div>
-    )
-}
-
-export const NumCharsRadioGroup = ({question, qName}) => {
-    return(
-        <div>
-            <h4>{question}</h4>
-            <label>less than 200</label>
-            <Field type="radio" name={qName} value="<200"/>
-            <label>200 to 250</label>
-            <Field type="radio" name={qName} value="200-250"/>
-            <label>500 to 800</label>
-            <Field type="radio" name={qName} value="500-800"/>
-            <label>more than 800</label>
-            <Field type="radio" name={qName} value=">800"/>
-        </div>
-    )
-}
-
-export const TopicProfRadioGroup = ({question, qName}) => {
-    return(
-        <div> 
-            <h4>{question}</h4>
-            <label>All</label>
-            <Field type="radio" name={qName} value="All"/>
-            <label>Most</label>
-            <Field type="radio" name={qName} value="Most"/>
-            <label>Some</label>
-            <Field type="radio" name={qName} value="Some"/>
-            <label>None</label>
-            <Field type="radio" name={qName} value="None"/>
         </div>
     )
 }

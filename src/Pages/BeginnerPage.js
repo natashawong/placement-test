@@ -21,7 +21,7 @@ export class BeginnerPage extends Component {
         
         console.log(finalRes)
         // post data to db
-        axios.post('http://localhost:9000/submit', finalRes, {withCredentials: true})
+        axios.post('http://localhost:9000/submit', finalRes)
         .then(resp => console.log(resp))
         .catch(err => console.log(err))
     }

@@ -4,7 +4,6 @@ const router = express.Router();
 const easyQuestionModel = require('../models/questionSchema').easyQuestions;
 const mediumQuestionModel = require('../models/questionSchema').mediumQuestions;
 const advanceQuestionModel = require('../models/questionSchema').advanceQuestions;
-const nativeQuestionModel = require('../models/questionSchema').nativeQuestions;
 
 const studentModel = require('../models/studentSchema');
 
@@ -16,9 +15,9 @@ const studentModel = require('../models/studentSchema');
 
 // TODO: error handling AND loading screen while questions are coming up
 
-async function getRandomQuestions(model, questionsSeen) {
+async function getRandomQuestions(model, questionsSeen, numberOfQuestions = 3) { // TODO: change this to 4 once I fix mongo test Qs
     const count = await model.countDocuments().lean();
-    const questions = await Promise.all([...new Array(3)].map(() => { // TODO: change to 10 later
+    const questions = await Promise.all([...new Array(numberOfQuestions)].map(() => {
         var rand = Math.floor(Math.random() * Math.floor(count));
         while (questionsSeen.includes(rand)) {
             rand = Math.floor(Math.random() * Math.floor(count));
@@ -62,14 +61,21 @@ router.get('/set-questions/advance', async (req, res) => {
     }
 })
 
-router.get('/set-questions/native', async (req, res) => {
+// set questions for phase 1
+router.get('/set-questions/phase1', async (req, res) => {
     try {
-        if (!req.session.nativeQuestionsSeen) {req.session.nativeQuestionsSeen = []};
-        const currQs = await getRandomQuestions(nativeQuestionModel, req.session.nativeQuestionsSeen)
-        res.send(currQs)
+        if (!req.session.easyQuestionsSeen) {req.session.easyQuestionsSeen = []};
+        if (!req.session.medQuestionsSeen) {req.session.medQuestionsSeen = []};
+        if (!req.session.advQuestionsSeen) {req.session.advQuestionsSeen = []};
+        const currQs = [];
+        currQs.push(await getRandomQuestions(easyQuestionModel, req.session.easyQuestionsSeen));
+        currQs.push(await getRandomQuestions(mediumQuestionModel, req.session.medQuestionsSeen));
+        currQs.push(await getRandomQuestions(advanceQuestionModel, req.session.advQuestionsSeen));
+        // TODO: the order is currently [{}], [{}], [{}] which I think will pose a problem... to fix maybe. javascript flattening things.
+        res.send(currQs);
     } catch(err) {
-        res.sendStatus(500)
-        console.log(err)
+        res.sendStatus(500);
+        console.log(err);
     }
 })
 
@@ -84,30 +90,8 @@ router.get('/set-questions/native', async (req, res) => {
         Name: req.body.Name,
         School: req.body.School,
         Email: req.body.Email,
-        Nationality: req.body.Nationality,
         NativeSpeaker: req.body.NativeSpeaker,
-        Beginner: req.body.Beginner,
-        PrevChineseEducation: req.body.PrevChineseEducation,
-        ChineseProfTests: req.body.ChineseProfTests,
-        PrevChineseEducation: req.body.PrevChineseEducation,
-        RecentYrChineseEd: req.body.RecentYrChineseEd,
-        IntensityOfInstruction: req.body.IntensityOfInstruction,
-        NumCharactersRead: req.body.NumCharactersRead,
-        NumCharactersWritten: req.body.NumCharactersWritten,
         HeritageLearner: req.body.HeritageLearner,
-        FluentWOFormal: req.body.FluentWOFormal,
-        FluentWOWriting: req.body.FluentWOWriting,
-        ChineseAtHome: req.body.ChineseAtHome,
-        ChineseWFriends: req.body.ChineseWFriends,
-        Other: req.body.Other,
-        Classical: req.body.Classical,
-        LengthOfStudyAbroad: req.body.LengthOfStudyAbroad,
-        Topics_Family_Dates_Hobby_Sports_Money: req.body.Topics_Family_Dates_Hobby_Sports_Money,
-        Topics_Weather_Direction_Doctor_Apt_Travel: req.body.Topics_Weather_Direction_Doctor_Apt_Travel,
-        Topics_Internet_Education_Jobs_Course_Geo: req.body.Topics_Internet_Education_Jobs_Course_Geo,
-        Topics_Uni_ChineseReligion_Customs_Gender_Env: req.body.Topics_Uni_ChineseReligion_Customs_Gender_Env,
-        Topics_LiteraryWorks_Hist_Economy: req.body.Topics_LiteraryWorks_Hist_Economy,
-        OtherInfo: req.body.OtherInfo,
         LangSettings: req.body.LangSettings,
         Results: req.body.Results,
      })
