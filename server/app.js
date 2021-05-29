@@ -17,7 +17,7 @@ var cors = require("cors");
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(cors({ credentials: true, origin: "http://localhost:3000" })); // TOOD: change local host to website regex eventually
+app.use(cors({ credentials: true, origin: "http://localhost:3001" })); // TOOD: change local host to website regex eventually
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
